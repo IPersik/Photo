@@ -1,4 +1,4 @@
-package utils
+package com.example.photooftheday.utils
 
 import android.content.Context
 import android.util.AttributeSet
