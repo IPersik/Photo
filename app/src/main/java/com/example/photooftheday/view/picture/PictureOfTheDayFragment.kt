@@ -87,6 +87,7 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayState.Success -> {
                 val pictureOfTheDayResponseData = state.pictureOfTheDayResponseData
                 val url = pictureOfTheDayResponseData.url
+                binding.includeBottomSheet.bottomSheetDescriptionHeader.text = pictureOfTheDayResponseData.explanation
                 binding.imageView.load(url) {
                     lifecycle(this@PictureOfTheDayFragment)
                     error(R.drawable.ic_load_error_vector)
