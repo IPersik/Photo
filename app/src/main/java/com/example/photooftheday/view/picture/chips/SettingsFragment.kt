@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.photooftheday.R
 import com.example.photooftheday.databinding.FragmentSettingsBinding
 import com.google.android.material.chip.Chip
 
@@ -46,6 +47,20 @@ class SettingsFragment : Fragment() {
             binding.chipForDelete.isChecked = false
         }
         binding.tabs.getTabAt(0)!!.text = "Работает"
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_one -> {
+                    Toast.makeText(context,"1",Toast.LENGTH_SHORT).show()
+                }
+                R.id.navigation_two -> {
+                    Toast.makeText(context,"2",Toast.LENGTH_SHORT).show()
+                }
+                R.id.navigation_third -> {
+                    Toast.makeText(context,"3",Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
     }
 
     companion object {

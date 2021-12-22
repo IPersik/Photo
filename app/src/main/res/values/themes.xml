@@ -1,6 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.PhotoOfTheDay" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -50,7 +53,12 @@
         <item name="cornerSize">80dp</item>
     </style>
 
-    <style name="CustomStyle" parent="TextAppearance.AppCompat.Button">
+    <style name="CustomStyle" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">23sp</item>
+        <item name="fontFamily">@font/aguafina_script</item>
+        <item name="android:textColor">@color/purple_200</item>
     </style>
+
+
 </resources>
