@@ -17,7 +17,7 @@ import coil.load
 import com.example.photooftheday.MainActivity
 import com.example.photooftheday.R
 import com.example.photooftheday.databinding.FragmentMainBinding
-import com.example.photooftheday.view.picture.chips.ChipsFragment
+import com.example.photooftheday.view.picture.chips.SettingsFragment
 import com.example.photooftheday.viewvodel.PictureOfTheDayState
 import com.example.photooftheday.viewvodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -119,7 +119,7 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_settings -> requireActivity().supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.container,
-                    ChipsFragment.newInstance()
+                    SettingsFragment.newInstance()
                 ).commit()
             android.R.id.home -> BottomNavigationDrawerFragment().show(
                 requireActivity().supportFragmentManager,

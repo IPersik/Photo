@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.photooftheday.databinding.FragmentChipsBinding
 import com.google.android.material.chip.Chip
 
-class ChipsFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
 
     private var _binding: FragmentChipsBinding? = null
@@ -45,11 +45,12 @@ class ChipsFragment : Fragment() {
             //binding.chipForDelete.visibility = View.GONE
             binding.chipForDelete.isChecked = false
         }
+        binding.tabs.getTabAt(0)!!.text = "Работает"
     }
 
     companion object {
         @JvmStatic
         fun newInstance() =
-            ChipsFragment()
+            SettingsFragment()
     }
 }
