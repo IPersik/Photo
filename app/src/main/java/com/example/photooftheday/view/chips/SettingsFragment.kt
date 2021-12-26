@@ -1,4 +1,4 @@
-package com.example.photooftheday.view.picture.chips
+package com.example.photooftheday.view.chips
 
 import android.os.Bundle
 import android.view.LayoutInflater

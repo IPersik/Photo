@@ -1,11 +1,10 @@
 package com.example.photooftheday
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.photooftheday.databinding.ActivityMainBinding
-import com.example.photooftheday.view.picture.chips.SettingsFragment
+import com.example.photooftheday.R
+import com.example.photooftheday.view.chips.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
