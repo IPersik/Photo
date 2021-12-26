@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PhotoOfTheDay">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.photooftheday.MainActivity"
             android:exported="true">
         </activity>
 

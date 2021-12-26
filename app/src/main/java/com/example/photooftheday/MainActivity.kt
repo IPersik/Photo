@@ -8,8 +8,6 @@ import com.example.photooftheday.view.chips.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
