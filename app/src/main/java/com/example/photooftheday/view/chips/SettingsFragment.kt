@@ -12,13 +12,11 @@ import com.google.android.material.chip.Chip
 
 class SettingsFragment : Fragment() {
 
-
     private var _binding: FragmentSettingsBinding? = null
     val binding: FragmentSettingsBinding
         get() {
             return _binding!!
         }
-
 
     override fun onDestroy() {
         super.onDestroy()

@@ -7,23 +7,27 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.example.photooftheday.MainActivity
+import com.example.photooftheday.view.MainActivity
 import com.example.photooftheday.R
 import com.example.photooftheday.databinding.FragmentMainBinding
+import com.example.photooftheday.view.api.ApiActivity
+import com.example.photooftheday.view.api.ApiBottomActivity
 import com.example.photooftheday.view.chips.SettingsFragment
 import com.example.photooftheday.viewvodel.PictureOfTheDayState
 import com.example.photooftheday.viewvodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
+
 class PictureOfTheDayFragment : Fragment() {
+
+
     private var _binding: FragmentMainBinding? = null
     val binding: FragmentMainBinding
         get() {
@@ -79,7 +83,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun renderData(state: PictureOfTheDayState) {
         when (state) {
-            is PictureOfTheDayState.Error -> {//TODO(ДЗ)
+            is PictureOfTheDayState.Error -> { state.error.message
             }
             is PictureOfTheDayState.Loading -> {
                 binding.imageView.load(R.drawable.ic_no_photo_vector)
@@ -87,7 +91,6 @@ class PictureOfTheDayFragment : Fragment() {
             is PictureOfTheDayState.Success -> {
                 val pictureOfTheDayResponseData = state.pictureOfTheDayResponseData
                 val url = pictureOfTheDayResponseData.url
-                binding.includeBottomSheet.bottomSheetDescriptionHeader.text = pictureOfTheDayResponseData.explanation
                 binding.imageView.load(url) {
                     lifecycle(this@PictureOfTheDayFragment)
                     error(R.drawable.ic_load_error_vector)
@@ -116,7 +119,12 @@ class PictureOfTheDayFragment : Fragment() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_fav -> Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
+            R.id.api_activity -> {
+                startActivity(Intent(requireContext(), ApiActivity::class.java))
+            }
+            R.id.api_bottom_activity -> {
+                startActivity(Intent(requireContext(), ApiBottomActivity::class.java))
+            }
             R.id.app_bar_settings -> requireActivity().supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.container,

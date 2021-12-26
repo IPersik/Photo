@@ -11,18 +11,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PhotoOfTheDay">
         <activity
-            android:name="com.example.photooftheday.MainActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name="com.example.photooftheday.view.api.ApiActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.example.photooftheday.view.api.ApiActivity"
+            android:exported="true">
+            <intent-filter>
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.example.photooftheday.view.api.ApiBottomActivity"
+            android:exported="true">
         </activity>
 
         <meta-data
