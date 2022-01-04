@@ -16,6 +16,7 @@ import coil.load
 import com.example.photooftheday.view.MainActivity
 import com.example.photooftheday.R
 import com.example.photooftheday.databinding.FragmentMainBinding
+import com.example.photooftheday.databinding.FragmentMainStartBinding
 import com.example.photooftheday.view.api.ApiActivity
 import com.example.photooftheday.view.api.ApiBottomActivity
 import com.example.photooftheday.view.chips.SettingsFragment
@@ -28,8 +29,8 @@ import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
 
-    private var _binding: FragmentMainBinding? = null
-    val binding: FragmentMainBinding
+    private var _binding: FragmentMainStartBinding? = null
+    val binding: FragmentMainStartBinding
         get() {
             return _binding!!
         }
@@ -108,7 +109,7 @@ class PictureOfTheDayFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMainStartBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, PictureOfTheDayFragment.newInstance()).commit() */
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ConstraintFragment.newInstance()).addToBackStack("").commit()
+                .replace(R.id.container, PictureOfTheDayFragment.newInstance()).commit()
             /* supportFragmentManager.beginTransaction()
                  .replace(R.id.container, SettingsFragment.newInstance()).commit()*/
         }
