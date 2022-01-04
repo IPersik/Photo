@@ -1,11 +1,13 @@
 package com.example.photooftheday.view.picture
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.photooftheday.R
 import com.example.photooftheday.databinding.BottomNavigationLayoutBinding
+import com.example.photooftheday.view.animations.AnimationsActivity
 import com.example.photooftheday.view.constraint.ConstraintFragment
 import com.example.photooftheday.view.coordinator.CoordinatorFragment
 import com.example.photooftheday.view.motion.MotionFragment
@@ -43,6 +45,9 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 R.id.navigation_third -> {
                     requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.container, MotionFragment.newInstance()).addToBackStack("").commit()
+                }
+                R.id.navigation_four -> {
+                    startActivity(Intent(requireActivity(), AnimationsActivity::class.java))
                 }
             }
             dismiss()

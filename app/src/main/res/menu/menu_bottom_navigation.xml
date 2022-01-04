@@ -11,5 +11,10 @@
     <item
         android:id="@+id/navigation_third"
         android:icon="@drawable/ic_search"
-        android:title="На экран 3" />
+        android:title="Радиальные кнопки" />
+
+    <item
+        android:id="@+id/navigation_four"
+        android:icon="@drawable/ic_search"
+        android:title="Анимации" />
 </menu>
