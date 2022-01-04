@@ -1,4 +1,4 @@
-package com.example.photooftheday.view.coordinator
+package com.example.photooftheday.view.motion
 
 
 import android.os.Bundle
@@ -7,19 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
-import com.example.photooftheday.databinding.FragmentCoordinatorBinding
-import com.example.photooftheday.view.coordinator.NestedBehavior
-import androidx.core.widget.NestedScrollView
-import com.example.photooftheday.view.motion.MotionFragment
+import com.example.photooftheday.databinding.BonusStartBinding
 
-class CoordinatorFragment : Fragment() {
+class MotionFragment : Fragment() {
 
 
-    private var _binding: FragmentCoordinatorBinding? = null
-    val binding: FragmentCoordinatorBinding
+    private var _binding: BonusStartBinding? = null
+    val binding: BonusStartBinding
         get() {
             return _binding!!
         }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -30,16 +28,12 @@ class CoordinatorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCoordinatorBinding.inflate(inflater, container, false)
+        _binding = BonusStartBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val nestedBehavior= NestedBehavior()
-
-        (binding.nested.layoutParams as CoordinatorLayout.LayoutParams).behavior = nestedBehavior
-
     }
 
     companion object {

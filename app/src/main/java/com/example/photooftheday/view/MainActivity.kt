@@ -7,6 +7,7 @@ import com.example.photooftheday.R
 import com.example.photooftheday.view.api.SystemFragment
 import com.example.photooftheday.view.chips.SettingsFragment
 import com.example.photooftheday.view.constraint.ConstraintFragment
+import com.example.photooftheday.view.motion.MotionFragment
 import com.example.photooftheday.view.picture.BottomNavigationDrawerFragment
 import com.example.photooftheday.view.picture.PictureOfTheDayFragment
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, PictureOfTheDayFragment.newInstance()).commit() */
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, PictureOfTheDayFragment.newInstance()).commit()
+                .replace(R.id.container, MotionFragment.newInstance()).commit()
             /* supportFragmentManager.beginTransaction()
                  .replace(R.id.container, SettingsFragment.newInstance()).commit()*/
         }

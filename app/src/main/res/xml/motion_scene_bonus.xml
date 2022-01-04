@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetStart="@layout/bonus_start"
+        app:constraintSetEnd="@layout/bonus_end"
+        app:duration="1000">
+        <OnClick app:targetId="@+id/center"/>
+    </Transition>
+
+    <Transition
+        app:constraintSetEnd="@layout/bonus_start"
+        app:constraintSetStart="@layout/bonus_end"
+        app:duration="1000">
+        <OnClick app:targetId="@+id/center"/>
+    </Transition>
+
+</MotionScene>

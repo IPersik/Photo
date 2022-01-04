@@ -32,6 +32,8 @@
         <entry key="app/src/main/res/layout/activity_api_tabitem_system.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_bottom_api.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/bonus_end.xml" value="0.1037037037037037" />
+        <entry key="app/src/main/res/layout/bonus_start.xml" value="0.1037037037037037" />
         <entry key="app/src/main/res/layout/bottom_navigation_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bottom_sheet_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_chips.xml" value="0.1" />
@@ -49,6 +51,7 @@
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation_view.xml" value="0.1" />
         <entry key="app/src/main/res/xml/motion_scene.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/motion_scene_bonus.xml" value="0.1037037037037037" />
       </map>
     </option>
   </component>
