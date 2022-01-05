@@ -7,67 +7,48 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.*
-import com.example.photooftheday.databinding.ActivityAnimationsBinding
 
 import com.example.photooftheday.R
+import com.example.photooftheday.databinding.ActivityAnimationsBinding
 
 class AnimationsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnimationsBinding
 
-    private var isTextViewVisible = false
+    private var isExpand= false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAnimationsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.recyclerView.adapter = Adapter()
-    }
+        binding.imageView.setOnClickListener {
+            isExpand = !isExpand
 
-    inner class Adapter : RecyclerView.Adapter<ViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            return ViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.activity_animations_recycler_item, parent, false)
-            )
-        }
+            val params = binding.imageView.layoutParams as FrameLayout.LayoutParams
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.itemView.setOnClickListener {
-                val explodeTransition = Explode()
-                val button = it as Button
-                val fadeTransition = Fade()
-                val setTransition = TransitionSet()
-                explodeTransition.duration = 5000
-                fadeTransition.duration = 5000
-                explodeTransition.excludeTarget(button, true)
-                explodeTransition.epicenterCallback = object : Transition.EpicenterCallback() {
-                    override fun onGetEpicenter(transition: Transition): Rect {
-                        val rect = Rect(
-                            button.x.toInt(),
-                            button.y.toInt(),
-                            button.x.toInt(),
-                            button.y.toInt()
-                        )
-                        //val rect = Rect()
-                        //button.getGlobalVisibleRect(rect) // почти то же самое
-                        return rect
-                    }
-                }
+            val transitionSet = TransitionSet()
+            val transitionCB = ChangeBounds()
+            val transitionImage = ChangeImageTransform()
+            transitionCB.duration = 2000
+            transitionImage.duration = 2000
+            transitionSet.addTransition(transitionCB)
+            transitionSet.addTransition(transitionImage)
+            TransitionManager.beginDelayedTransition(binding.container, transitionSet)
 
-                setTransition.addTransition(fadeTransition)
-                setTransition.addTransition(explodeTransition)
-                TransitionManager.beginDelayedTransition(binding.recyclerView, setTransition)
-                binding.recyclerView.adapter = null
+            if (isExpand) {
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                params.height = FrameLayout.LayoutParams.MATCH_PARENT
+            } else {
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                params.height = FrameLayout.LayoutParams.WRAP_CONTENT
             }
-        }
 
-        override fun getItemCount(): Int {
-            return 32
+            binding.imageView.layoutParams = params
         }
-
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
