@@ -48,6 +48,7 @@
         <entry key="app/src/main/res/layout/fragment_mars.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_system.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/toolbar_elevation.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_bottom_bar.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_bottom_bar_other_screen.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.1" />

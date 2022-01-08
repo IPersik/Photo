@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.photooftheday.R
+import com.example.photooftheday.databinding.ActivityAnimationsBinding
 import com.example.photooftheday.databinding.FragmentSettingsBinding
 import com.google.android.material.chip.Chip
 
@@ -18,10 +19,12 @@ class SettingsFragment : Fragment() {
             return _binding!!
         }
 
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +32,7 @@ class SettingsFragment : Fragment() {
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +41,6 @@ class SettingsFragment : Fragment() {
             group.findViewById<Chip>(checkedId)?.let{
                 Toast.makeText(context,"choose ${it.text}",Toast.LENGTH_SHORT).show()
             }
-
         }
 
         binding.chipForDelete.setOnCloseIconClickListener {
@@ -59,6 +62,7 @@ class SettingsFragment : Fragment() {
             }
             true
         }
+
     }
 
     companion object {
