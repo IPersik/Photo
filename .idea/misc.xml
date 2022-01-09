@@ -37,6 +37,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_recycler.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_recycler_item_earth.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_recycler_item_header.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_recycler_item_mars.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bonus_end.xml" value="0.1037037037037037" />
         <entry key="app/src/main/res/layout/bonus_start.xml" value="0.1037037037037037" />

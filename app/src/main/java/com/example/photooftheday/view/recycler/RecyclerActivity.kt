@@ -23,6 +23,7 @@ class RecyclerActivity:AppCompatActivity() {
             Data("Earth",type= TYPE_EARTH),
             Data("Mars", null,type= TYPE_MARS)
         )
+        data.add(0,Data("Заголовок",type= TYPE_HEADER))
 
 
         binding.recyclerView.adapter = RecyclerActivityAdapter(data,
