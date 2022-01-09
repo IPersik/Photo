@@ -1,5 +1,6 @@
 package com.example.photooftheday.view.recycler
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import com.example.photooftheday.databinding.ActivityRecyclerItemMarsBinding
 class RecyclerActivityAdapter(
     private val data: MutableList<Pair<Data, Boolean>>,
     private val callbackListener: MyCallback
-) : RecyclerView.Adapter<BaseViewHolder>() {
+) : RecyclerView.Adapter<BaseViewHolder>(),ItemTouchHelperAdapter {
 
 
     fun appendItem() {
@@ -76,7 +77,7 @@ class RecyclerActivityAdapter(
         }
     }
 
-    inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view),ItemTouchHelperViewHolder {
         override fun bind(data: Pair<Data, Boolean>) {
             ActivityRecyclerItemMarsBinding.bind(itemView).apply {
                 someTextTextView.text = data.first.someText
@@ -95,7 +96,7 @@ class RecyclerActivityAdapter(
                 moveItemUp.setOnClickListener {
                     moveUp()
                 }
-                marsDescriptionTextView.visibility = if (data.second) View.VISIBLE else View.GONE
+                marsDescriptionTextView.visibility = if(data.second) View.VISIBLE else View.GONE
                 someTextTextView.setOnClickListener {
                     toggleDescription()
                 }
@@ -133,6 +134,14 @@ class RecyclerActivityAdapter(
             notifyItemRemoved(layoutPosition)
         }
 
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.CYAN)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
+
 
     }
 
@@ -147,4 +156,17 @@ class RecyclerActivityAdapter(
             }
         }
     }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        data.removeAt(fromPosition).apply {
+            data.add(toPosition, this)
+        }
+        notifyItemMoved(fromPosition,toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        data.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
 }
