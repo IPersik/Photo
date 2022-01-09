@@ -17,7 +17,7 @@ class RecyclerActivityAdapter(
     private val data: MutableList<Pair<Data, Boolean>>,
     private val callbackListener: MyCallback,
     private val onStartDragListener: OnStartDragListener
-) : RecyclerView.Adapter<BaseViewHolder>(),ItemTouchHelperAdapter {
+) : RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
 
     interface OnStartDragListener {
         fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
@@ -38,7 +38,7 @@ class RecyclerActivityAdapter(
     }
 
     private fun generateItem(): Pair<Data, Boolean> {
-        return Data((0..9999999).random(),someText = "Mars") to false
+        return Data((0..9999999).random(), someText = "Mars") to false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -92,20 +92,27 @@ class RecyclerActivityAdapter(
         }
     }*/
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int,payloads: MutableList<Any>) {
-        if(payloads.isEmpty()){
+    override fun onBindViewHolder(
+        holder: BaseViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads)
-        }else{
+        } else {
             val combinedChange =
                 createCombinedPayload(payloads as MutableList<Change<Pair<Data, Boolean>>>)
             val oldData = combinedChange.oldData
             val newData = combinedChange.newData
-            Log.d("mylogs","${(1..9999999).random()} ${
-                newData.first.someText!=oldData.first.someText
-            }")
+            Log.d(
+                "mylogs", "${(1..9999999).random()} ${
+                    newData.first.someText != oldData.first.someText
+                }"
+            )
 
 
-            ActivityRecyclerItemMarsBinding.bind(holder.itemView).someTextTextView.text = newData.first.someText
+            ActivityRecyclerItemMarsBinding.bind(holder.itemView).someTextTextView.text =
+                newData.first.someText
 
         }
     }
@@ -130,7 +137,7 @@ class RecyclerActivityAdapter(
         }
     }
 
-    inner class MarsViewHolder(view: View) : BaseViewHolder(view),ItemTouchHelperViewHolder {
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
         override fun bind(data: Pair<Data, Boolean>) {
             ActivityRecyclerItemMarsBinding.bind(itemView).apply {
                 someTextTextView.text = data.first.someText
@@ -149,14 +156,14 @@ class RecyclerActivityAdapter(
                 moveItemUp.setOnClickListener {
                     moveUp()
                 }
-                marsDescriptionTextView.visibility = if(data.second) View.VISIBLE else View.GONE
+                marsDescriptionTextView.visibility = if (data.second) View.VISIBLE else View.GONE
                 someTextTextView.setOnClickListener {
                     toggleDescription()
                 }
 
-                dragHandleImageView.setOnTouchListener{v, event->
-                    Log.d("mylogs","setOnTouchListener $event")
-                    if(MotionEventCompat.getActionMasked(event)== MotionEvent.ACTION_DOWN){ // TODO This method will be removed in a future release.
+                dragHandleImageView.setOnTouchListener { v, event ->
+                    Log.d("mylogs", "setOnTouchListener $event")
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) { // TODO This method will be removed in a future release.
                         onStartDragListener.onStartDrag(this@MarsViewHolder)
                     }
                     false
@@ -172,18 +179,22 @@ class RecyclerActivityAdapter(
         }
 
         private fun moveUp() { // FIXME ДЗ убрать ошиюбку java.lang.IndexOutOfBoundsException
+            layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
 
-            data.removeAt(layoutPosition).apply {
-                data.add(layoutPosition - 1, this)
+                data.removeAt(layoutPosition).apply {
+                    data.add(layoutPosition - 1, this)
+                }
+                notifyItemMoved(layoutPosition, layoutPosition - 1)
             }
-            notifyItemMoved(layoutPosition, layoutPosition - 1)
         }
 
         private fun moveDown() { // FIXME ДЗ убрать ошиюбку java.lang.IndexOutOfBoundsException
-            data.removeAt(layoutPosition).apply {
-                data.add(layoutPosition + 1, this)
+            layoutPosition.takeIf { it < data.size - 1 }?.also { currentPosition ->
+                data.removeAt(layoutPosition).apply {
+                    data.add(layoutPosition + 1, this)
+                }
+                notifyItemMoved(layoutPosition, layoutPosition + 1)
             }
-            notifyItemMoved(layoutPosition, layoutPosition + 1)
         }
 
         private fun addItemToPosition() {
@@ -223,7 +234,7 @@ class RecyclerActivityAdapter(
         data.removeAt(fromPosition).apply {
             data.add(toPosition, this)
         }
-        notifyItemMoved(fromPosition,toPosition)
+        notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onItemDismiss(position: Int) {
