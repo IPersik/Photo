@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MotionEventCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.photooftheday.databinding.ActivityRecyclerItemEarthBinding
 import com.example.photooftheday.databinding.ActivityRecyclerItemHeaderBinding
@@ -17,9 +18,19 @@ class RecyclerActivityAdapter(
     private val callbackListener: MyCallback,
     private val onStartDragListener: OnStartDragListener
 ) : RecyclerView.Adapter<BaseViewHolder>(),ItemTouchHelperAdapter {
+
     interface OnStartDragListener {
         fun onStartDrag(viewHolder: RecyclerView.ViewHolder)
     }
+
+
+    fun setItems(newItems: List<Pair<Data, Boolean>>) {
+        val result = DiffUtil.calculateDiff(DiffUtilCallback(data, newItems))
+        result.dispatchUpdatesTo(this)
+        data.clear()
+        data.addAll(newItems)
+    }
+
 
     fun appendItem() {
         data.add(generateItem())
@@ -27,7 +38,7 @@ class RecyclerActivityAdapter(
     }
 
     private fun generateItem(): Pair<Data, Boolean> {
-        return Data(someText = "Mars") to false
+        return Data((0..9999999).random(),someText = "Mars") to false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -61,6 +72,42 @@ class RecyclerActivityAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return data[position].first.type
+    }
+
+    /*override fun onBindViewHolder(
+        holder: BaseViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads)
+        else {
+            val combinedChange =
+                createCombinedPayload(payloads as MutableList<Change<Pair<Data, Boolean>>>)
+            val oldData = combinedChange.oldData
+            val newData = combinedChange.newData
+            if (newData.first.someText != oldData.first.someText) {
+                ActivityRecyclerItemMarsBinding.bind(holder.itemView).marsTextView.text = newData.first.someText
+            }
+        }
+    }*/
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int,payloads: MutableList<Any>) {
+        if(payloads.isEmpty()){
+            super.onBindViewHolder(holder, position, payloads)
+        }else{
+            val combinedChange =
+                createCombinedPayload(payloads as MutableList<Change<Pair<Data, Boolean>>>)
+            val oldData = combinedChange.oldData
+            val newData = combinedChange.newData
+            Log.d("mylogs","${(1..9999999).random()} ${
+                newData.first.someText!=oldData.first.someText
+            }")
+
+
+            ActivityRecyclerItemMarsBinding.bind(holder.itemView).someTextTextView.text = newData.first.someText
+
+        }
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -106,6 +153,7 @@ class RecyclerActivityAdapter(
                 someTextTextView.setOnClickListener {
                     toggleDescription()
                 }
+
                 dragHandleImageView.setOnTouchListener{v, event->
                     Log.d("mylogs","setOnTouchListener $event")
                     if(MotionEventCompat.getActionMasked(event)== MotionEvent.ACTION_DOWN){ // TODO This method will be removed in a future release.
@@ -124,6 +172,7 @@ class RecyclerActivityAdapter(
         }
 
         private fun moveUp() { // FIXME ДЗ убрать ошиюбку java.lang.IndexOutOfBoundsException
+
             data.removeAt(layoutPosition).apply {
                 data.add(layoutPosition - 1, this)
             }

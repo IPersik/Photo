@@ -12,14 +12,17 @@ class RecyclerActivity:AppCompatActivity() {
 
     private lateinit var binding: ActivityRecyclerBinding
     lateinit var itemTouchHelper:ItemTouchHelper
+    private var isNewList = false
+    private lateinit var adapter: RecyclerActivityAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val data = arrayListOf(
-            Data("Earth",type= TYPE_EARTH) to false,
-            Data("Mars", "", type = TYPE_MARS) to false/*,
+            Data(0,"Earth",type= TYPE_EARTH) to false,
+            Data(1,"Mars", "", type = TYPE_MARS) to false/*,
             Data("Earth",type= TYPE_EARTH),
             Data("Mars", "",type= TYPE_MARS),
             Data("Earth",type= TYPE_EARTH),
@@ -27,7 +30,7 @@ class RecyclerActivity:AppCompatActivity() {
             Data("Earth",type= TYPE_EARTH),
             Data("Mars", null,type= TYPE_MARS)*/
         )
-        data.add(0,Data("Заголовок",type= TYPE_HEADER) to false)
+        data.add(0,Data(3,"Заголовок",type= TYPE_HEADER) to false)
 
         val lat  = 55
         val lon  = 37
@@ -40,7 +43,7 @@ class RecyclerActivity:AppCompatActivity() {
         coordinate3d.second
         coordinate3d.third
 
-        val adapter = RecyclerActivityAdapter(data,
+        adapter = RecyclerActivityAdapter(data,
             object : MyCallback {
                 override fun onClick(position: Int) {
                     Toast.makeText(
@@ -57,9 +60,37 @@ class RecyclerActivity:AppCompatActivity() {
 
         )
         binding.recyclerView.adapter = adapter
+        binding.recyclerActivityDiffUtilFAB.setOnClickListener {
+            adapter.setItems(createItemList(isNewList).map { it })
+            isNewList = !isNewList
+        }
         binding.recyclerActivityFAB.setOnClickListener {
             adapter.appendItem()
         }
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)    }
+
+    private fun createItemList(instanceNumber: Boolean): List<Pair<Data, Boolean>> {
+        return when (instanceNumber) {
+            false -> listOf(
+                Pair(Data(0, "Header"), false),
+                Pair(Data(1, "Mars", ""), false),
+                Pair(Data(2, "Mars", ""), false),
+                Pair(Data(3, "Mars", ""), false),
+                Pair(Data(4, "Mars", ""), false),
+                Pair(Data(5, "Mars", ""), false),
+                Pair(Data(6, "Mars", ""), false)
+            )
+            true -> listOf(
+                Pair(Data(0, "Header"), false),
+                Pair(Data(1, "Mars", ""), false),
+                Pair(Data(2, "Jupiter", ""), false),
+                Pair(Data(3, "Mars", ""), false),
+                Pair(Data(4, "Neptune", ""), false),
+                Pair(Data(5, "Saturn", ""), false),
+                Pair(Data(7, "Mars", ""), false)
+            )
+        }
+    }
 }
+
