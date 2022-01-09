@@ -26,6 +26,7 @@
         <entry key="app/src/main/res/drawable/swipe_indicator_active.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/swipe_indicator_passive.xml" value="0.1" />
         <entry key="app/src/main/res/font/aguafina_script.xml" value="0.13796296296296295" />
+        <entry key="app/src/main/res/layout/activity_animation_end.xml" value="0.10185185185185185" />
         <entry key="app/src/main/res/layout/activity_animations.xml" value="0.1037037037037037" />
         <entry key="app/src/main/res/layout/activity_animations_recycler_item.xml" value="0.1037037037037037" />
         <entry key="app/src/main/res/layout/activity_api.xml" value="0.1" />
@@ -34,6 +35,9 @@
         <entry key="app/src/main/res/layout/activity_api_tabitem_system.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_bottom_api.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_recycler.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_recycler_item_earth.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_recycler_item_mars.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bonus_end.xml" value="0.1037037037037037" />
         <entry key="app/src/main/res/layout/bonus_start.xml" value="0.1037037037037037" />
         <entry key="app/src/main/res/layout/bottom_navigation_layout.xml" value="0.1" />

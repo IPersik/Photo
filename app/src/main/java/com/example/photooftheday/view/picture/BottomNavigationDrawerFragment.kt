@@ -11,6 +11,7 @@ import com.example.photooftheday.view.animations.AnimationsActivity
 import com.example.photooftheday.view.constraint.ConstraintFragment
 import com.example.photooftheday.view.coordinator.CoordinatorFragment
 import com.example.photooftheday.view.motion.MotionFragment
+import com.example.photooftheday.view.recycler.RecyclerActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
@@ -44,10 +45,14 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                 }
                 R.id.navigation_third -> {
                     requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, MotionFragment.newInstance()).addToBackStack("").commit()
+                        .replace(R.id.container, MotionFragment.newInstance()).addToBackStack("")
+                        .commit()
                 }
                 R.id.navigation_four -> {
-                    startActivity(Intent(requireActivity(), AnimationsActivity::class.java))
+                   startActivity(Intent(requireActivity(), AnimationsActivity::class.java))
+                }
+                R.id.navigation_five -> {
+                    startActivity(Intent(requireActivity(), RecyclerActivity::class.java))
                 }
             }
             dismiss()

@@ -3,7 +3,7 @@
     <item
         android:id="@+id/navigation_one"
         android:icon="@drawable/ic_archive"
-        android:title="На экран 1" />
+        android:title="Радиальные кнопки" />
     <item
         android:id="@+id/navigation_two"
         android:icon="@drawable/ic_send"
@@ -17,4 +17,9 @@
         android:id="@+id/navigation_four"
         android:icon="@drawable/ic_search"
         android:title="Анимации" />
+
+    <item
+        android:id="@+id/navigation_five"
+        android:icon="@drawable/ic_wikipedia"
+        android:title="Recycler" />
 </menu>
