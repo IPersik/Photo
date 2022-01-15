@@ -7,12 +7,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.style.BulletSpan
-import android.text.style.ImageSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.QuoteSpan
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -112,51 +112,59 @@ class PictureOfTheDayFragment : Fragment() {
                     placeholder(R.drawable.ic_no_photo_vector)
                 }
                 pictureOfTheDayResponseData.explanation?.let {
-                    binding.textView.text = it
-                    /*binding.textView.typeface = Typeface.createFromAsset(
-                        requireContext().assets,
-                        "font/font/Robus-BWqOd.otf"
-                    )
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        binding.textView.typeface = resources.getFont(R.font.a)
-                    }*/
-                    val spannableMutable =
-                        SpannableStringBuilder("My \n text \n text \nbullet one \nbullet two")
-                    val spannableUnMutable = SpannableString("My text \nbullet one \nbullet two")
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        spannableMutable.setSpan(
-                            BulletSpan(20, resources.getColor(R.color.colorAccent), 20),
-                            0, 30, Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                        )
-                        spannableMutable.setSpan(
-                            BulletSpan(20, resources.getColor(R.color.colorAccent), 20),
-                            4, 21, Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                        )
-                        spannableMutable.setSpan(
-                            BulletSpan(20, resources.getColor(R.color.colorAccent), 20),
-                            11, 21, Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                        )
-                    }
-                    spannableMutable.setSpan(
-                        BulletSpan(20, resources.getColor(R.color.colorAccent)),
-                        21, spannableMutable.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                    )
-
-                    for (i in spannableMutable.indices) {
-                        if (spannableMutable[i] == 'o') {
-                            spannableMutable.setSpan(
-                                ImageSpan(
-                                    requireContext(),
-                                    R.drawable.ic_earth
-                                ), i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                            )
-                        }
-                    }
-                    binding.textView.text = spannableMutable
+                    val spannableStart = SpannableStringBuilder(it)
+                    binding.textView.setText(spannableStart, TextView.BufferType.EDITABLE)
+                    val spannable = binding.textView.text as SpannableStringBuilder
+                    initSpans(spannable)
                 }
             }
         }
+    }
+
+    private fun initSpans(spannable: SpannableStringBuilder) {
+        spannable.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorAccent
+                )
+            ),
+            0, 10, Spannable.SPAN_EXCLUSIVE_INCLUSIVE // FIXME EXCLUSIVE_INCLUSIVE
+        )
+        spannable.insert(0, "1")
+        spannable.insert(10, "\n")
+        spannable.insert(20, "\n")
+
+        val q: QuoteSpan
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            q = QuoteSpan(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorAccent
+                ),
+                20,
+                40
+            )
+        } else {
+            q = QuoteSpan(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.colorAccent
+                )
+            )
+        }
+        spannable.setSpan(
+            q, 0, 20, Spannable.SPAN_EXCLUSIVE_INCLUSIVE // FIXME EXCLUSIVE_INCLUSIVE
+        )
+        val qq = QuoteSpan(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.colorAccent
+            )
+        )
+        spannable.setSpan(
+            qq, 10, 19, Spannable.SPAN_EXCLUSIVE_INCLUSIVE // FIXME EXCLUSIVE_INCLUSIVE
+        )
     }
 
     override fun onCreateView(

@@ -75,8 +75,8 @@
 
         <com.example.photooftheday.utils.CustomImageView
             android:id="@+id/imageView"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/photo_of_the_day_stub"
             android:visibility="invisible"
