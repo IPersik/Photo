@@ -3,11 +3,14 @@ package com.example.photooftheday.view.picture
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.BulletSpan
+import android.text.style.ImageSpan
 import android.util.Log
 import android.view.*
 import androidx.activity.OnBackPressedCallback
@@ -110,18 +113,47 @@ class PictureOfTheDayFragment : Fragment() {
                 }
                 pictureOfTheDayResponseData.explanation?.let {
                     binding.textView.text = it
-                    binding.textView.typeface =
-                        Typeface.createFromAsset(requireContext().assets, "Robus-BWqOd.otf")
-                    binding.textView.typeface = Typeface.createFromAsset(
+                    /*binding.textView.typeface = Typeface.createFromAsset(
                         requireContext().assets,
                         "font/font/Robus-BWqOd.otf"
                     )
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         binding.textView.typeface = resources.getFont(R.font.a)
+                    }*/
+                    val spannableMutable =
+                        SpannableStringBuilder("My \n text \n text \nbullet one \nbullet two")
+                    val spannableUnMutable = SpannableString("My text \nbullet one \nbullet two")
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        spannableMutable.setSpan(
+                            BulletSpan(20, resources.getColor(R.color.colorAccent), 20),
+                            0, 30, Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                        )
+                        spannableMutable.setSpan(
+                            BulletSpan(20, resources.getColor(R.color.colorAccent), 20),
+                            4, 21, Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                        )
+                        spannableMutable.setSpan(
+                            BulletSpan(20, resources.getColor(R.color.colorAccent), 20),
+                            11, 21, Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                        )
                     }
-                    val text =
-                        "My <h1> text </h1> <h2> text </h2> <ul><li>bullet one</li><li>bullet two</li></ul>"
-                    binding.textView.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+                    spannableMutable.setSpan(
+                        BulletSpan(20, resources.getColor(R.color.colorAccent)),
+                        21, spannableMutable.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                    )
+
+                    for (i in spannableMutable.indices) {
+                        if (spannableMutable[i] == 'o') {
+                            spannableMutable.setSpan(
+                                ImageSpan(
+                                    requireContext(),
+                                    R.drawable.ic_earth
+                                ), i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                            )
+                        }
+                    }
+                    binding.textView.text = spannableMutable
                 }
             }
         }
