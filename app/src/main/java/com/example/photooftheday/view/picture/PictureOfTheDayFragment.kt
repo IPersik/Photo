@@ -3,18 +3,24 @@ package com.example.photooftheday.view.picture
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.text.style.QuoteSpan
+import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -165,6 +171,28 @@ class PictureOfTheDayFragment : Fragment() {
         spannable.setSpan(
             qq, 10, 19, Spannable.SPAN_EXCLUSIVE_INCLUSIVE // FIXME EXCLUSIVE_INCLUSIVE
         )
+        val requestCallback = FontRequest(
+            "com.google.android.gms.fonts", "com.google.android.gms",
+            "Aguafina Script", R.array.com_google_android_gms_fonts_certs
+        )
+        val callback = object : FontsContractCompat.FontRequestCallback(){
+            override fun onTypefaceRetrieved(typeface: Typeface?) {
+                typeface?.let {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        spannable.setSpan(
+                            TypefaceSpan(it),
+                            0,50,Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+                        //spannable.insert(0, "1")
+                    }
+                }
+            }
+
+            override fun onTypefaceRequestFailed(reason: Int) {
+                super.onTypefaceRequestFailed(reason)
+            }
+        }
+        val handler = Handler(Looper.getMainLooper())
+        FontsContractCompat.requestFont(requireContext(),requestCallback,callback,handler)
     }
 
     override fun onCreateView(
