@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.*
 import androidx.activity.OnBackPressedCallback
@@ -15,10 +16,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.example.photooftheday.view.MainActivity
 import com.example.photooftheday.R
-import com.example.photooftheday.databinding.FragmentMainBinding
 import com.example.photooftheday.databinding.FragmentMainStartBinding
+import com.example.photooftheday.view.MainActivity
 import com.example.photooftheday.view.api.ApiActivity
 import com.example.photooftheday.view.api.ApiBottomActivity
 import com.example.photooftheday.view.chips.SettingsFragment
@@ -72,9 +72,13 @@ class PictureOfTheDayFragment : Fragment() {
             }
         })
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId){
-                R.id.yestrday ->{viewModel.sendServerRequest(takeDate(-1))}
-                R.id.today ->{viewModel.sendServerRequest()}
+            when (checkedId) {
+                R.id.yestrday -> {
+                    viewModel.sendServerRequest(takeDate(-1))
+                }
+                R.id.today -> {
+                    viewModel.sendServerRequest()
+                }
             }
         }
         setBottomAppBar()
@@ -90,7 +94,8 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun renderData(state: PictureOfTheDayState) {
         when (state) {
-            is PictureOfTheDayState.Error -> { state.error.message
+            is PictureOfTheDayState.Error -> {
+                state.error.message
             }
             is PictureOfTheDayState.Loading -> {
                 binding.imageView.load(R.drawable.ic_no_photo_vector)
@@ -103,16 +108,25 @@ class PictureOfTheDayFragment : Fragment() {
                     error(R.drawable.ic_load_error_vector)
                     placeholder(R.drawable.ic_no_photo_vector)
                 }
-                pictureOfTheDayResponseData.explanation?.let{
+                pictureOfTheDayResponseData.explanation?.let {
                     binding.textView.text = it
-                    //binding.textView.typeface = Typeface.createFromAsset(requireContext().assets,"Robus-BWqOd.otf")
-                    binding.textView.typeface = Typeface.createFromAsset(requireContext().assets,"font/font/Robus-BWqOd.otf")
+                    binding.textView.typeface =
+                        Typeface.createFromAsset(requireContext().assets, "Robus-BWqOd.otf")
+                    binding.textView.typeface = Typeface.createFromAsset(
+                        requireContext().assets,
+                        "font/font/Robus-BWqOd.otf"
+                    )
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         binding.textView.typeface = resources.getFont(R.font.a)
                     }
-                }            }
+                    val text =
+                        "My <h1> text </h1> <h2> text </h2> <ul><li>bullet one</li><li>bullet two</li></ul>"
+                    binding.textView.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+                }
+            }
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -127,10 +141,12 @@ class PictureOfTheDayFragment : Fragment() {
             return PictureOfTheDayFragment()
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_bottom_bar, menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.api_activity -> {
@@ -151,6 +167,7 @@ class PictureOfTheDayFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private var isMain = true
     private fun setBottomAppBar() {
         val context = activity as MainActivity
