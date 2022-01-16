@@ -42,9 +42,9 @@ class PictureOfTheDayFragment : Fragment() {
 
     private var _binding: FragmentMainStartBinding? = null
     val binding: FragmentMainStartBinding
-        get() {
-            return _binding!!
-        }
+    get() {
+        return _binding!!
+    }
 
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
@@ -68,18 +68,22 @@ class PictureOfTheDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
+
         val behavior = BottomSheetBehavior.from(binding.includeBottomSheet.bottomSheetContainer)
         behavior.state = BottomSheetBehavior.STATE_HIDDEN
+
 
         behavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
+
             }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 Log.d("mylogs", "$slideOffset slideOffset")
             }
         })
+
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.yestrday -> {
@@ -90,7 +94,9 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
         }
+
         setBottomAppBar()
+
     }
 
     private fun takeDate(count: Int): String {
@@ -100,6 +106,7 @@ class PictureOfTheDayFragment : Fragment() {
         format1.timeZone = TimeZone.getTimeZone("EST")
         return format1.format(currentDate.time)
     }
+
 
     private fun renderData(state: PictureOfTheDayState) {
         when (state) {
@@ -118,69 +125,75 @@ class PictureOfTheDayFragment : Fragment() {
                     placeholder(R.drawable.ic_no_photo_vector)
                 }
                 pictureOfTheDayResponseData.explanation?.let {
-                    val spannableStart = SpannableStringBuilder(it)
-                    binding.textView.setText(spannableStart, TextView.BufferType.EDITABLE)
-                    val spannable = binding.textView.text as SpannableStringBuilder
-                    initSpans(spannable)
+
+                    initSpans(it)
                 }
             }
         }
     }
 
-    private fun initSpans(spannable: SpannableStringBuilder) {
-        spannable.setSpan(
-            ForegroundColorSpan(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.colorAccent
-                )
-            ),
-            0, 10, Spannable.SPAN_EXCLUSIVE_INCLUSIVE // FIXME EXCLUSIVE_INCLUSIVE
-        )
-        spannable.insert(0, "1")
-        spannable.insert(10, "\n")
-        spannable.insert(20, "\n")
-
-        val q: QuoteSpan
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            q = QuoteSpan(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.colorAccent
-                ),
-                20,
-                40
-            )
-        } else {
-            q = QuoteSpan(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.colorAccent
-                )
-            )
-        }
-        spannable.setSpan(
-            q, 0, 20, Spannable.SPAN_EXCLUSIVE_INCLUSIVE // FIXME EXCLUSIVE_INCLUSIVE
-        )
-        val qq = QuoteSpan(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.colorAccent
-            )
-        )
-        spannable.setSpan(
-            qq, 10, 19, Spannable.SPAN_EXCLUSIVE_INCLUSIVE // FIXME EXCLUSIVE_INCLUSIVE
-        )
+    private fun initSpans(text:String) {
+        val  r = (1..9999).random()
+        Log.d("mylogs","initSpans ${r}")
         val requestCallback = FontRequest(
             "com.google.android.gms.fonts", "com.google.android.gms",
             "Aguafina Script", R.array.com_google_android_gms_fonts_certs
         )
         val callback = object : FontsContractCompat.FontRequestCallback(){
             override fun onTypefaceRetrieved(typeface: Typeface?) {
+                Log.d("mylogs","onTypefaceRetrieved ${r}")
                 typeface?.let {
+                    Log.d("mylogs","let ${r}")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        val spannableStart = SpannableStringBuilder(text)
+                        binding.textView.setText(spannableStart, TextView.BufferType.EDITABLE)
+                        val spannable = binding.textView.text as SpannableStringBuilder
                         spannable.setSpan(
-                            TypefaceSpan(it),
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.colorAccent
+                                )
+                            ),
+                            0, 10, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                        )
+                        spannable.insert(0, "1")
+                        spannable.insert(10, "\n")
+                        spannable.insert(20, "\n")
+
+                        val q: QuoteSpan
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            q = QuoteSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.colorAccent
+                                ),
+                                20,
+                                40
+                            )
+                        } else {
+                            q = QuoteSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.colorAccent
+                                )
+                            )
+                        }
+                        spannable.setSpan(
+                            q, 0, 20, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                        )
+                        val qq = QuoteSpan(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.colorAccent
+                            )
+                        )
+                        spannable.setSpan(
+                            qq, 10, 19, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                        )
+
+
+                        spannable.setSpan(TypefaceSpan(it),
                             0,50,Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
                         //spannable.insert(0, "1")
                     }
@@ -189,10 +202,12 @@ class PictureOfTheDayFragment : Fragment() {
 
             override fun onTypefaceRequestFailed(reason: Int) {
                 super.onTypefaceRequestFailed(reason)
+                Log.d("mylogs","onTypefaceRequestFailed ${(1..9999).random()}")
             }
         }
         val handler = Handler(Looper.getMainLooper())
         FontsContractCompat.requestFont(requireContext(),requestCallback,callback,handler)
+
     }
 
     override fun onCreateView(

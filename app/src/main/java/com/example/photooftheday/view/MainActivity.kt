@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        setTheme(R.style.Theme_PhotoOfTheDay)
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             /*supportFragmentManager.beginTransaction()

@@ -12,6 +12,13 @@
         android:theme="@style/Theme.PhotoOfTheDay">
         <activity
             android:name="com.example.photooftheday.view.MainActivity"
+            android:theme="@style/Theme.PhotoOfTheDay.Splash"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".view.SplashActivity"
+            android:noHistory="true"
             android:exported="true">
 
             <intent-filter>
